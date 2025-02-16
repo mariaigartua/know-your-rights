@@ -106,7 +106,7 @@
                 const card = document.createElement('div');
                 card.className = 'question-card';
                 card.setAttribute('data-answer', q.answer);
-                card.innerText = q.text;
+                card.innerHTML = `<div class="question-text">${q.text}</div><div class="answer-text">${q.answer}</div>`;
                 container.appendChild(card);
             });
         }
@@ -118,30 +118,53 @@
             askerOther.style.display = (askerSelect.value === 'Other') ? 'block' : 'none';
         }
 
-        // Original form response logic
+        // Corrected "Get Help" functionality
         function getHelp() {
             const asker = document.getElementById('asker').value === 'Other'
                 ? document.getElementById('askerOther').value
                 : document.getElementById('asker').value;
 
-            const question = document.getElementById('question').value;
+            const question = document.getElementById('question').value.toLowerCase();
 
             if (!asker || !question) {
                 document.getElementById('helpResponse').innerText = 'Please fill out all fields!';
                 return;
             }
 
-            document.getElementById('helpResponse').innerText = `Help request sent! Asker: ${asker}, Question: ${question}`;
+            let response = "I'm sorry, I couldn't find relevant information. Please remain calm and request legal representation.";
+
+            const keywordAnswers = {
+                "race": "Racial profiling is illegal. You can ask if you're free to go.",
+                "nationality": "You have the right not to disclose your nationality.",
+                "immigration": "You can refuse to show immigration papers unless ICE presents a judicial warrant.",
+                "gender": "You can request correct pronouns and refuse invasive questions.",
+                "religion": "Religious freedom is protected by the First Amendment. You are not required to discuss your beliefs.",
+                "protest": "You have the right to peacefully protest. Ask if you are being detained and comply if given a lawful order.",
+                "search": "You have the right to refuse a search unless there's a valid warrant.",
+                "disability": "You have the right to request reasonable accommodations under the ADA.",
+                "lawyer": "You have the right to remain silent and request a lawyer. Clearly say: 'I want to speak to a lawyer.'",
+                "detained": "If you are detained, remain silent and request a lawyer. Do not consent to any searches.",
+                "ICE": "If approached by ICE, you can refuse to speak and ask for a lawyer. Do not open your door unless they present a signed judicial warrant.",
+                "arrest": "If you are arrested, remain silent and ask for a lawyer. Do not sign anything without legal representation."
+            };
+
+            for (const [keyword, answer] of Object.entries(keywordAnswers)) {
+                if (question.includes(keyword)) {
+                    response = answer;
+                    break;
+                }
+            }
+
+            document.getElementById('helpResponse').innerText = response;
         }
 
-        // New feature: Send an emergency message with location
+        // Emergency alert function
         function alertContact() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     const { latitude, longitude } = position.coords;
-                    const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
-                    const emergencyContact = userProfile.phoneNumber || "+1234567890";
-                    const message = `Emergency! I need help. My location: https://www.google.com/maps?q=${latitude},${longitude}`;
+                    const emergencyContact = "+1234567890"; // Placeholder; adjust as needed
+                    const message = `🚨 Emergency! I need help. My location: https://www.google.com/maps?q=${latitude},${longitude}`;
                     alert(`Sending emergency message to ${emergencyContact}: ${message}`);
                 }, () => {
                     alert('Unable to access location.');

@@ -78,10 +78,11 @@ nav ul li a {
     color: #000000;
     border-radius: 5px;
     margin: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 nav ul li:hover > a {
-    background-color: #D32F2F;
+    background-color: #B71C1C;
     color: #FFFFFF;
 }
 
@@ -110,6 +111,11 @@ ul.dropdown li a {
     color: #000000;
 }
 
+ul.dropdown li a:hover {
+    background-color: #B71C1C;
+    color: #FFFFFF;
+}
+
 /* Categories */
 .categories {
     display: flex;
@@ -127,13 +133,13 @@ ul.dropdown li a {
     text-align: center;
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
     font-weight: bold;
 }
 
 .category:hover {
     transform: scale(1.1);
-    background-color: #000000;
+    background-color: #B71C1C;
     color: #FFFFFF;
 }
 
@@ -162,10 +168,11 @@ a {
     margin: 10px;
     font-weight: bold;
     display: inline-block;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 a:hover {
-    background-color: #000000;
+    background-color: #B71C1C;
     color: #FFFFFF;
 }
 
