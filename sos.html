@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Rights</title>
+    <link rel="stylesheet" href="sos.css">
+</head>
+<body class="sos-page" onload="generateBiasQuestions()">
+
+    <!-- Main SOS Layout -->
+    <div class="sos-container">
+        <!-- Left Side: Tailored Bias-Based Questions -->
+        <div class="question-section" id="biasQuestionsContainer">
+            <!-- Bias questions dynamically generated here -->
+        </div>
+
+        <!-- Right Side: SOS Form -->
+        <div class="help-box">
+            <h1 class="title">WE ARE HERE TO HELP</h1>
+
+            <form id="sosForm">
+                <!-- Who is Asking? -->
+                <div class="form-group">
+                    <label for="asker">WHO IS ASKING?</label>
+                    <select id="asker" onchange="toggleAskerInput()">
+                        <option value="" disabled selected>Select who is asking</option>
+                        <option value="Police">Police</option>
+                        <option value="ICE">ICE</option>
+                        <option value="Transit Officer">Transit Officer</option>
+                        <option value="Protest Authority">Protest Authority</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="askerOther" placeholder="Enter who is asking" style="display:none;">
+                </div>
+
+                <!-- What Are They Asking You To Do? -->
+                <div class="form-group">
+                    <label for="question">WHAT ARE THEY ASKING YOU TO DO?</label>
+                    <input type="text" id="question" placeholder="Enter what you're being asked" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" onclick="getHelp()">GET HELP</button>
+                <p id="helpResponse"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="welcome.html" class="footer-link">🔙 BACK TO MAIN PAGE</a>
+    </footer>
+
+    <!-- JavaScript for Interactive Elements -->
+    <script>
+        // Simulated profile from MongoDB
+        const userProfile = {
+            age: 30,
+            immigrationStatus: "DACA Recipient",
+            gender: "Non-Binary",
+            disability: "Autism",
+            race: "Black",
+            religion: "Muslim"
+        };
+
+        const biasQuestionTemplates = [
+            // Race-based
+            { condition: "race", text: "What if police stop me because of my race?", answer: "Racial profiling is illegal. You can ask if you're free to go." },
+            { condition: "race", text: "What if I'm asked about my nationality?", answer: "You have the right not to disclose your nationality." },
+            // Immigration-based
+            { condition: "immigrationStatus", text: "What if ICE asks for my immigration papers?", answer: "You can refuse unless they have a warrant." },
+            { condition: "immigrationStatus", text: "Can ICE detain me without reason?", answer: "ICE needs reasonable suspicion and a warrant." },
+            // Gender identity-based
+            { condition: "gender", text: "What if I'm misgendered by law enforcement?", answer: "You can request correct pronouns and report harassment." },
+            { condition: "gender", text: "Can police ask invasive questions about my gender?", answer: "You can refuse invasive questions unless legally justified." },
+            // Religion-based
+            { condition: "religion", text: "What if someone questions my religious attire?", answer: "Religious freedom is protected by law." },
+            { condition: "religion", text: "What if I'm asked about my religious practices?", answer: "You have the right not to answer these questions." },
+            // Disability-based
+            { condition: "disability", text: "What if my behavior is misunderstood?", answer: "Inform them of your disability. You have the right to accommodations." },
+            { condition: "disability", text: "Can I have support if I'm questioned?", answer: "You can request a support person or attorney." },
+            // Protest-related
+            { condition: "age", text: "What if I'm stopped at a protest?", answer: "Protesting is protected by law. Stay calm and ask if you're being detained." },
+            { condition: "age", text: "What if I'm asked to leave a protest?", answer: "Ask if there is a lawful order and comply if necessary." }
+        ];
+
+        // Generate tailored questions
+        function generateBiasQuestions() {
+            const container = document.getElementById('biasQuestionsContainer');
+            container.innerHTML = '';
+
+            let filteredQuestions = biasQuestionTemplates.filter(q => userProfile[q.condition]);
+            let selectedQuestions = filteredQuestions.slice(0, 4);
+
+            if (selectedQuestions.length < 4) {
+                const remaining = 4 - selectedQuestions.length;
+                const fallback = biasQuestionTemplates.filter(q => !filteredQuestions.includes(q)).slice(0, remaining);
+                selectedQuestions = selectedQuestions.concat(fallback);
+            }
+
+            selectedQuestions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.setAttribute('data-answer', q.answer);
+                card.innerText = q.text;
+                container.appendChild(card);
+            });
+        }
+
+        // Show input for "Other"
+        function toggleAskerInput() {
+            const askerSelect = document.getElementById('asker');
+            const askerOther = document.getElementById('askerOther');
+            askerOther.style.display = (askerSelect.value === 'Other') ? 'block' : 'none';
+        }
+
+        // Simple form response
+        function getHelp() {
+            const asker = document.getElementById('asker').value === 'Other'
+                ? document.getElementById('askerOther').value
+                : document.getElementById('asker').value;
+
+            const question = document.getElementById('question').value;
+
+            if (!asker || !question) {
+                document.getElementById('helpResponse').innerText = 'Please fill out all fields!';
+                return;
+            }
+
+            document.getElementById('helpResponse').innerText = `Help request sent! Asker: ${asker}, Question: ${question}`;
+        }
+    </script>
+</body>
+</html>

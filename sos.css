@@ -1,0 +1,174 @@
+/* SOS Page Styles */
+.sos-page {
+    background-color: #FFFFFF;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Main SOS Container */
+.sos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    gap: 40px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Left Side: Bias Question Cards */
+.question-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 300px;
+}
+
+.question-card {
+    position: relative;
+    background-color: #B71C1C;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+    font-size: 1.1em;
+}
+
+/* Tooltip for Hover Effect */
+.question-card::after {
+    content: attr(data-answer);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.85em;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.question-card:hover::after {
+    opacity: 1;
+}
+
+/* Right Side: Help Box */
+.help-box {
+    background-color: #B71C1C;
+    color: #FFFFFF;
+    padding: 30px 40px;
+    border-radius: 25px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    max-width: 450px;
+    text-align: center;
+}
+
+.help-box .title {
+    margin-bottom: 30px;
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    color: #000;
+    background-color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #D6D6D6;
+    color: #B71C1C;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #FFFFFF;
+}
+
+#helpResponse {
+    margin-top: 20px;
+    color: #FFF;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+    background-color: #B71C1C;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ffc107;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sos-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .question-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .question-card {
+        flex: 1 1 40%;
+    }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setup - Know Your Rights</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="profile-page">
+    <div class="profile-container">
+        <h1 class="title">SET UP YOUR PROFILE</h1>
+        
+        <!-- Opt-Out Checkbox -->
+        <div class="opt-out">
+            <input type="checkbox" id="optOut" onchange="toggleProfileFields()">
+            <label for="optOut">I prefer not to provide personal information.</label>
+        </div>
+
+        <!-- Profile Form -->
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="age">AGE</label>
+                <input type="number" id="age" placeholder="Enter your age" required>
+            </div>
+
+            <div class="form-group">
+                <label for="immigrationStatus">IMMIGRATION STATUS</label>
+                <select id="immigrationStatus">
+                    <option value="" disabled selected>Select your status</option>
+                    <option value="Citizen">Citizen</option>
+                    <option value="Permanent Resident">Permanent Resident</option>
+                    <option value="Visa Holder">Visa Holder</option>
+                    <option value="Undocumented">Undocumented</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">GENDER</label>
+                <select id="gender">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="disability">DISABILITY</label>
+                <select id="disability">
+                    <option value="" disabled selected>Select your status</option>
+                    <option value="None">None</option>
+                    <option value="Physical Disability">Physical Disability</option>
+                    <option value="Cognitive Disability">Cognitive Disability</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="race">RACE</label>
+                <select id="race">
+                    <option value="" disabled selected>Select your race</option>
+                    <option value="Hispanic">Hispanic</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Asian">Asian</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="religion">RELIGION</label>
+                <select id="religion">
+                    <option value="" disabled selected>Select your religion</option>
+                    <option value="Christianity">Christianity</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Judaism">Judaism</option>
+                    <option value="None">None</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="saveProfile()">SAVE PROFILE</button>
+            <p id="profileResponse"></p>
+        </form>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <a href="learn.html" class="nav-button learn">LEARN MORE</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="welcome.html" class="footer-link">🔙 BACK TO MAIN PAGE</a>
+    </footer>
+
+    <script>
+        // Disable fields if opt-out is selected
+        function toggleProfileFields() {
+            const optOut = document.getElementById('optOut').checked;
+            const inputs = document.querySelectorAll('#profileForm select, #profileForm input');
+            inputs.forEach((input) => {
+                input.disabled = optOut;
+            });
+        }
+
+        // Save profile to localStorage
+        function saveProfile() {
+            const optOut = document.getElementById('optOut').checked;
+            const profile = {
+                age: optOut ? "Opted Out" : document.getElementById('age').value,
+                immigrationStatus: optOut ? "Opted Out" : document.getElementById('immigrationStatus').value,
+                gender: optOut ? "Opted Out" : document.getElementById('gender').value,
+                disability: optOut ? "Opted Out" : document.getElementById('disability').value,
+                race: optOut ? "Opted Out" : document.getElementById('race').value,
+                religion: optOut ? "Opted Out" : document.getElementById('religion').value,
+                optedOut: optOut
+            };
+
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+            document.getElementById('profileResponse').innerText = "Profile saved successfully!";
+        }
+    </script>
+</body>
+</html>
