@@ -80,6 +80,12 @@
                 </select>
             </div>
 
+            <!-- Emergency Contact Field -->
+            <div class="form-group">
+                <label for="phoneNumber">EMERGENCY CONTACT PHONE NUMBER</label>
+                <input type="tel" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+
             <!-- Submit Button -->
             <button type="button" onclick="saveProfile()">SAVE PROFILE</button>
             <p id="profileResponse"></p>
@@ -116,6 +122,7 @@
                 disability: optOut ? "Opted Out" : document.getElementById('disability').value,
                 race: optOut ? "Opted Out" : document.getElementById('race').value,
                 religion: optOut ? "Opted Out" : document.getElementById('religion').value,
+                phoneNumber: optOut ? "Opted Out" : document.getElementById('phoneNumber').value,
                 optedOut: optOut
             };
 

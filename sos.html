@@ -42,6 +42,9 @@
 
                 <!-- Submit Button -->
                 <button type="button" onclick="getHelp()">GET HELP</button>
+                <!-- New Alert Contact Button -->
+                <button type="button" onclick="alertContact()">🚨 ALERT CONTACT</button>
+
                 <p id="helpResponse"></p>
             </form>
         </div>
@@ -115,7 +118,7 @@
             askerOther.style.display = (askerSelect.value === 'Other') ? 'block' : 'none';
         }
 
-        // Simple form response
+        // Original form response logic
         function getHelp() {
             const asker = document.getElementById('asker').value === 'Other'
                 ? document.getElementById('askerOther').value
@@ -130,6 +133,24 @@
 
             document.getElementById('helpResponse').innerText = `Help request sent! Asker: ${asker}, Question: ${question}`;
         }
+
+        // New feature: Send an emergency message with location
+        function alertContact() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const { latitude, longitude } = position.coords;
+                    const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+                    const emergencyContact = userProfile.phoneNumber || "+1234567890";
+                    const message = `Emergency! I need help. My location: https://www.google.com/maps?q=${latitude},${longitude}`;
+                    alert(`Sending emergency message to ${emergencyContact}: ${message}`);
+                }, () => {
+                    alert('Unable to access location.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
     </script>
+
 </body>
 </html>
