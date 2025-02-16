@@ -1,4 +1,4 @@
-# **Know Your Rights **
+# Know Your Rights
 
 ## Context**
 
