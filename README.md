@@ -1,6 +1,6 @@
 # Know Your Rights
 
-## Context**
+## Context
 
 **Know Your Rights** provides accessible, clear, and reliable information about individuals' legal rights when interacting with law enforcement. It users understand what to do if they are detained or questioned by police, ICE, or other authorities.
 
@@ -12,9 +12,9 @@ Inspired by the **Hack(H)er 413 Diversity Panel**, we reflected on the role of t
 
 **Legal knowledge should be clear, actionable, and accessible for all** —especially for marginalized communities who may face biases in law enforcement interactions. 
 
-## 🔍 **Project Walkthrough**
+##  Walkthrough
 
-### 1️⃣ **Landing Page (welcome.html)**  
+### 1️⃣ Landing Page (welcome.html)
 Upon opening the app, users are greeted with a simple, bold landing page offering two primary options:  
 - **Learn More**: Redirects to the **Learn Page** with general rights information.  
 - **Help Now**: Redirects to the **SOS Page** for tailored, scenario-based guidance.  
