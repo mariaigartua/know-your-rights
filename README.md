@@ -36,7 +36,7 @@ The **SOS Page** is the heart of the app. It provides:
 - **Pre-generated Questions:** Four tailored questions based on the user's profile.  
 - **Dynamic Input:** Users can enter their own questions to get advice about their rights in unfamiliar situations.  
 
-###  **How It Works **  
+###  How It Works 
 1. **User Profile Setup**: The app collects optional demographic data to tailor advice.  
 2. **Question Generation**: The SOS Page uses simple rules based on legal best practices to show relevant information.  
 3. **Database Integration**: **MongoDB** stores user profiles and tracks common scenarios.  
